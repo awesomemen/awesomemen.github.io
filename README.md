@@ -1,5 +1,7 @@
 # awesomemen.github.io
 
+记录一些很赞的日志。
+
 Personal technical homepage built with Hugo and deployed with GitHub Pages.
 
 ## Local development
