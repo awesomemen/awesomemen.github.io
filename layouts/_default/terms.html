@@ -1,0 +1,22 @@
+{{ define "main" }}
+  <section class="page-head">
+    <div class="page-head__panel">
+      <div class="eyebrow">{{ .Data.Plural }}</div>
+      <h1>{{ .Title }}</h1>
+      <p>按主题快速浏览文章归档。</p>
+    </div>
+  </section>
+
+  <section class="content-grid">
+    <div class="term-grid">
+      {{ range .Data.Terms.ByCount }}
+        <a class="topic-row" href="{{ .Page.RelPermalink }}">
+          <strong>{{ .Page.Title }}</strong>
+          <span>{{ .Count }} 篇</span>
+        </a>
+      {{ else }}
+        <div class="empty-state">这里会展示按主题聚合的内容。</div>
+      {{ end }}
+    </div>
+  </section>
+{{ end }}

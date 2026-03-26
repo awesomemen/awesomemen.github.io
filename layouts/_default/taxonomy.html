@@ -1,0 +1,23 @@
+{{ define "main" }}
+  <section class="page-head">
+    <div class="page-head__panel">
+      <div class="eyebrow">{{ .Data.Singular }}</div>
+      <h1>{{ .Title }}</h1>
+      <p>这个专题下当前共有 {{ len .Pages }} 篇内容。</p>
+    </div>
+  </section>
+
+  <section class="content-grid">
+    {{ $paginator := .Paginate (.Pages.ByDate.Reverse) }}
+    {{ if gt (len $paginator.Pages) 0 }}
+      <div class="cards">
+        {{ range $paginator.Pages }}
+          {{ partial "article-card.html" . }}
+        {{ end }}
+      </div>
+      {{ partial "pagination.html" . }}
+    {{ else }}
+      <div class="empty-state">这个专题下暂时还没有文章。</div>
+    {{ end }}
+  </section>
+{{ end }}

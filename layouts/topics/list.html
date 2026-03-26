@@ -1,0 +1,44 @@
+{{ define "main" }}
+  <section class="page-head">
+    <div class="page-head__panel">
+      <div class="eyebrow">Topics</div>
+      <h1>{{ .Title }}</h1>
+      {{ with .Description }}
+        <p>{{ . }}</p>
+      {{ else }}
+        <p>{{ site.Params.topicsIntro }}</p>
+      {{ end }}
+    </div>
+  </section>
+
+  <section class="content-grid">
+    <div class="topic-board">
+      <div class="topic-card">
+        <h3>按标签浏览</h3>
+        <div class="topic-list">
+          {{ range site.Taxonomies.tags.ByCount }}
+            <a class="topic-row" href="{{ .Page.RelPermalink }}">
+              <strong>{{ .Page.Title }}</strong>
+              <span>{{ .Count }} 篇</span>
+            </a>
+          {{ else }}
+            <div class="empty-state">标签专题会随着文章发布逐步形成。</div>
+          {{ end }}
+        </div>
+      </div>
+      <div class="topic-card">
+        <h3>按分类浏览</h3>
+        <div class="topic-list">
+          {{ range site.Taxonomies.categories.ByCount }}
+            <a class="topic-row" href="{{ .Page.RelPermalink }}">
+              <strong>{{ .Page.Title }}</strong>
+              <span>{{ .Count }} 篇</span>
+            </a>
+          {{ else }}
+            <div class="empty-state">分类归档会在内容积累后更完整。</div>
+          {{ end }}
+        </div>
+      </div>
+    </div>
+  </section>
+{{ end }}

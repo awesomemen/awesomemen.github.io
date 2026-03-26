@@ -1,0 +1,16 @@
+<article class="card">
+  <div class="card__meta">
+    <span>精选项目</span>
+    {{ with .Params.tech_stack }}
+      <span>{{ delimit . " / " }}</span>
+    {{ end }}
+  </div>
+  <h3><a href="{{ .RelPermalink }}">{{ .Title }}</a></h3>
+  <p>{{ .Params.summary }}</p>
+  <div class="pill-row">
+    {{ if .Params.repo_url }}
+      <a class="pill" href="{{ .Params.repo_url }}" target="_blank" rel="noreferrer">仓库</a>
+    {{ end }}
+    <a class="pill" href="{{ .RelPermalink }}">详情</a>
+  </div>
+</article>

@@ -1,0 +1,41 @@
+{{ define "main" }}
+  <section class="page-head">
+    <div class="page-head__panel">
+      <div class="eyebrow">{{ .Section | default .Kind }}</div>
+      <h1>{{ .Title }}</h1>
+      {{ with .Description }}
+        <p>{{ . }}</p>
+      {{ else }}
+        <p>{{ if eq .Section "projects" }}持续维护的项目与实践索引。{{ else }}按时间沉淀的技术文章与复盘记录。{{ end }}</p>
+      {{ end }}
+    </div>
+  </section>
+
+  <section class="content-grid">
+    {{ if eq .Section "projects" }}
+      {{ $pages := sort .RegularPages "Params.weight" "asc" }}
+      {{ if gt (len $pages) 0 }}
+        <div class="projects">
+          {{ range $pages }}
+            {{ partial "project-card.html" . }}
+          {{ end }}
+        </div>
+      {{ else }}
+        <div class="empty-state">这里会放持续维护中的项目与仓库。</div>
+      {{ end }}
+    {{ else }}
+      {{ $pages := .RegularPages.ByDate.Reverse }}
+      {{ $paginator := .Paginate $pages }}
+      {{ if gt (len $paginator.Pages) 0 }}
+        <div class="cards">
+          {{ range $paginator.Pages }}
+            {{ partial "article-card.html" . }}
+          {{ end }}
+        </div>
+        {{ partial "pagination.html" . }}
+      {{ else }}
+        <div class="empty-state">内容还在整理中，稍后会出现首批文章。</div>
+      {{ end }}
+    {{ end }}
+  </section>
+{{ end }}

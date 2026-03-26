@@ -1,0 +1,130 @@
+{{ define "main" }}
+  {{ $posts := first 4 (where site.RegularPages.ByDate.Reverse "Section" "posts") }}
+  {{ $projects := first 3 (sort (where (where site.RegularPages "Section" "projects") "Params.featured" true) "Params.weight" "asc") }}
+  <section class="hero">
+    <div class="hero__panel">
+      <div class="eyebrow">Technical Notes</div>
+      <h1>{{ site.Params.heroTitle }}</h1>
+      <p class="hero__tagline">{{ site.Params.heroTagline }}</p>
+      <p class="hero__intro">{{ site.Params.heroIntro }}</p>
+      <div class="hero__actions">
+        <a class="button button--primary" href="/posts/">阅读最新文章</a>
+        <a class="button button--secondary" href="{{ site.Params.githubUrl }}" target="_blank" rel="noreferrer">访问 GitHub</a>
+      </div>
+    </div>
+    <aside class="hero__aside hero__panel">
+      <h2>站点重点</h2>
+      <div class="hero__meta">
+        <div class="meta-item">
+          <span>内容定位</span>
+          <strong>技术记录与工程沉淀</strong>
+        </div>
+        <div class="meta-item">
+          <span>优先阅读</span>
+          <a href="/topics/">按专题浏览文章</a>
+        </div>
+        <div class="meta-item">
+          <span>联系</span>
+          <a href="mailto:{{ site.Params.email }}">{{ site.Params.email }}</a>
+        </div>
+      </div>
+    </aside>
+  </section>
+
+  <section class="section">
+    <div class="section__panel">
+      <div class="section-head">
+        <div>
+          <h2>最新文章</h2>
+          <p>优先展示近期的技术记录、实践复盘和系统化整理。</p>
+        </div>
+        <a class="section-link" href="/posts/">查看全部文章</a>
+      </div>
+      {{ if gt (len $posts) 0 }}
+        <div class="cards">
+          {{ range $posts }}
+            {{ partial "article-card.html" . }}
+          {{ end }}
+        </div>
+      {{ else }}
+        <div class="empty-state">文章内容还在整理中，稍后会补充首批技术记录。</div>
+      {{ end }}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section__panel">
+      <div class="section-head">
+        <div>
+          <h2>技术专题</h2>
+          <p>{{ site.Params.topicsIntro }}</p>
+        </div>
+        <a class="section-link" href="/topics/">进入专题页</a>
+      </div>
+      <div class="topic-board">
+        <div class="topic-card">
+          <h3>标签</h3>
+          <div class="topic-list">
+            {{ range first 5 site.Taxonomies.tags.ByCount }}
+              <a class="topic-row" href="{{ .Page.RelPermalink }}">
+                <strong>{{ .Page.Title }}</strong>
+                <span>{{ .Count }} 篇</span>
+              </a>
+            {{ else }}
+              <div class="empty-state">标签会随着文章积累逐步形成。</div>
+            {{ end }}
+          </div>
+        </div>
+        <div class="topic-card">
+          <h3>分类</h3>
+          <div class="topic-list">
+            {{ range first 5 site.Taxonomies.categories.ByCount }}
+              <a class="topic-row" href="{{ .Page.RelPermalink }}">
+                <strong>{{ .Page.Title }}</strong>
+                <span>{{ .Count }} 篇</span>
+              </a>
+            {{ else }}
+              <div class="empty-state">分类页会在文章增多后更完整。</div>
+            {{ end }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section__panel">
+      <div class="section-head">
+        <div>
+          <h2>精选项目</h2>
+          <p>少量项目作为文章背后的实践注脚，强调长期维护而非铺陈数量。</p>
+        </div>
+        <a class="section-link" href="/projects/">查看项目列表</a>
+      </div>
+      {{ if gt (len $projects) 0 }}
+        <div class="projects">
+          {{ range $projects }}
+            {{ partial "project-card.html" . }}
+          {{ end }}
+        </div>
+      {{ else }}
+        <div class="empty-state">项目区会随着公开仓库整理逐步补全。</div>
+      {{ end }}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section__panel">
+      <div class="section-head">
+        <div>
+          <h2>联系</h2>
+          <p>站点内容与仓库更新都以 GitHub 为主，沟通入口保留 Email。</p>
+        </div>
+      </div>
+      <div class="pill-row">
+        <a class="pill" href="{{ site.Params.githubUrl }}" target="_blank" rel="noreferrer">GitHub / {{ site.Params.githubUsername }}</a>
+        <a class="pill" href="mailto:{{ site.Params.email }}">{{ site.Params.email }}</a>
+      </div>
+    </div>
+  </section>
+{{ end }}

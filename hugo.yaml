@@ -1,0 +1,57 @@
+baseURL: https://awesomemen.github.io/
+languageCode: zh-cn
+title: Awesomemen
+defaultContentLanguage: zh-cn
+hasCJKLanguage: true
+enableRobotsTXT: true
+summaryLength: 24
+
+pagination:
+  pagerSize: 6
+
+permalinks:
+  posts: /posts/:slug/
+  projects: /projects/:slug/
+
+taxonomies:
+  category: categories
+  tag: tags
+
+caches:
+  images:
+    dir: :cacheDir/images
+
+menu:
+  main:
+    - name: 首页
+      url: /
+      weight: 10
+    - name: 文章
+      url: /posts/
+      weight: 20
+    - name: 专题
+      url: /topics/
+      weight: 30
+    - name: 项目
+      url: /projects/
+      weight: 40
+
+params:
+  author: Awesomemen
+  email: awesomemen@duck.com
+  githubUsername: awesomemen
+  githubUrl: https://github.com/awesomemen
+  heroTitle: Awesomemen
+  heroTagline: 记录技术实践、系统设计与长期思考。
+  heroIntro: 这里整理工程经验、开发笔记与长期沉淀，让文章成为方法论的索引，让项目成为实践的注脚。
+  topicsIntro: 聚合长期关注的技术主题，方便从不同文章之间建立上下文。
+  footerNote: Built with Hugo and GitHub Pages.
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: false
+  highlight:
+    noClasses: true
+    lineNos: false
+    style: monokailight
