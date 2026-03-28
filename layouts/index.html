@@ -3,28 +3,28 @@
   {{ $projects := first 3 (sort (where (where site.RegularPages "Section" "projects") "Params.featured" true) "Params.weight" "asc") }}
   <section class="hero">
     <div class="hero__panel">
-      <div class="eyebrow">Technical Notes</div>
+      <div class="eyebrow" data-i18n="home.heroEyebrow">Technical Notes</div>
       <h1>{{ site.Params.heroTitle }}</h1>
-      <p class="hero__tagline">{{ site.Params.heroTagline }}</p>
-      <p class="hero__intro">{{ site.Params.heroIntro }}</p>
+      <p class="hero__tagline" data-i18n="home.heroTagline">{{ site.Params.heroTagline }}</p>
+      <p class="hero__intro" data-i18n="home.heroIntro">{{ site.Params.heroIntro }}</p>
       <div class="hero__actions">
-        <a class="button button--primary" href="/posts/">阅读最新文章</a>
-        <a class="button button--secondary" href="{{ site.Params.githubUrl }}" target="_blank" rel="noreferrer">访问 GitHub</a>
+        <a class="button button--primary" href="/posts/" data-i18n="home.readPosts">阅读最新文章</a>
+        <a class="button button--secondary" href="{{ site.Params.githubUrl }}" target="_blank" rel="noreferrer" data-i18n="home.visitGithub">访问 GitHub</a>
       </div>
     </div>
     <aside class="hero__aside hero__panel">
-      <h2>站点重点</h2>
+      <h2 data-i18n="home.highlightsTitle">站点重点</h2>
       <div class="hero__meta">
         <div class="meta-item">
-          <span>内容定位</span>
-          <strong>技术记录与工程沉淀</strong>
+          <span data-i18n="home.metaFocusLabel">内容定位</span>
+          <strong data-i18n="home.metaFocusValue">技术记录与工程沉淀</strong>
         </div>
         <div class="meta-item">
-          <span>优先阅读</span>
-          <a href="/topics/">按专题浏览文章</a>
+          <span data-i18n="home.metaTopicsLabel">优先阅读</span>
+          <a href="/topics/" data-i18n="home.metaTopicsValue">按专题浏览文章</a>
         </div>
         <div class="meta-item">
-          <span>联系</span>
+          <span data-i18n="home.metaContactLabel">联系</span>
           <a href="mailto:{{ site.Params.email }}">{{ site.Params.email }}</a>
         </div>
       </div>
@@ -35,10 +35,10 @@
     <div class="section__panel">
       <div class="section-head">
         <div>
-          <h2>最新文章</h2>
-          <p>优先展示近期的技术记录、实践复盘和系统化整理。</p>
+          <h2 data-i18n="home.latestPostsTitle">最新文章</h2>
+          <p data-i18n="home.latestPostsIntro">优先展示近期的技术记录、实践复盘和系统化整理。</p>
         </div>
-        <a class="section-link" href="/posts/">查看全部文章</a>
+        <a class="section-link" href="/posts/" data-i18n="home.allPosts">查看全部文章</a>
       </div>
       {{ if gt (len $posts) 0 }}
         <div class="cards">
@@ -47,7 +47,7 @@
           {{ end }}
         </div>
       {{ else }}
-        <div class="empty-state">文章内容还在整理中，稍后会补充首批技术记录。</div>
+        <div class="empty-state" data-i18n="home.emptyPosts">文章内容还在整理中，稍后会补充首批技术记录。</div>
       {{ end }}
     </div>
   </section>
@@ -56,35 +56,35 @@
     <div class="section__panel">
       <div class="section-head">
         <div>
-          <h2>技术专题</h2>
-          <p>{{ site.Params.topicsIntro }}</p>
+          <h2 data-i18n="home.topicsTitle">技术专题</h2>
+          <p data-i18n="home.topicsIntro">{{ site.Params.topicsIntro }}</p>
         </div>
-        <a class="section-link" href="/topics/">进入专题页</a>
+        <a class="section-link" href="/topics/" data-i18n="home.enterTopics">进入专题页</a>
       </div>
       <div class="topic-board">
         <div class="topic-card">
-          <h3>标签</h3>
+          <h3 data-i18n="home.tagsTitle">标签</h3>
           <div class="topic-list">
             {{ range first 5 site.Taxonomies.tags.ByCount }}
               <a class="topic-row" href="{{ .Page.RelPermalink }}">
                 <strong>{{ .Page.Title }}</strong>
-                <span>{{ .Count }} 篇</span>
+                <span data-i18n-template="common.countArticles" data-count="{{ .Count }}">{{ .Count }} 篇</span>
               </a>
             {{ else }}
-              <div class="empty-state">标签会随着文章积累逐步形成。</div>
+              <div class="empty-state" data-i18n="home.emptyTags">标签会随着文章积累逐步形成。</div>
             {{ end }}
           </div>
         </div>
         <div class="topic-card">
-          <h3>分类</h3>
+          <h3 data-i18n="home.categoriesTitle">分类</h3>
           <div class="topic-list">
             {{ range first 5 site.Taxonomies.categories.ByCount }}
               <a class="topic-row" href="{{ .Page.RelPermalink }}">
                 <strong>{{ .Page.Title }}</strong>
-                <span>{{ .Count }} 篇</span>
+                <span data-i18n-template="common.countArticles" data-count="{{ .Count }}">{{ .Count }} 篇</span>
               </a>
             {{ else }}
-              <div class="empty-state">分类页会在文章增多后更完整。</div>
+              <div class="empty-state" data-i18n="home.emptyCategories">分类页会在文章增多后更完整。</div>
             {{ end }}
           </div>
         </div>
@@ -96,10 +96,10 @@
     <div class="section__panel">
       <div class="section-head">
         <div>
-          <h2>精选项目</h2>
-          <p>少量项目作为文章背后的实践注脚，强调长期维护而非铺陈数量。</p>
+          <h2 data-i18n="home.projectsTitle">精选项目</h2>
+          <p data-i18n="home.projectsIntro">少量项目作为文章背后的实践注脚，强调长期维护而非铺陈数量。</p>
         </div>
-        <a class="section-link" href="/projects/">查看项目列表</a>
+        <a class="section-link" href="/projects/" data-i18n="home.allProjects">查看项目列表</a>
       </div>
       {{ if gt (len $projects) 0 }}
         <div class="projects">
@@ -108,7 +108,7 @@
           {{ end }}
         </div>
       {{ else }}
-        <div class="empty-state">项目区会随着公开仓库整理逐步补全。</div>
+        <div class="empty-state" data-i18n="home.emptyProjects">项目区会随着公开仓库整理逐步补全。</div>
       {{ end }}
     </div>
   </section>
@@ -117,8 +117,8 @@
     <div class="section__panel">
       <div class="section-head">
         <div>
-          <h2>联系</h2>
-          <p>站点内容与仓库更新都以 GitHub 为主，沟通入口保留 Email。</p>
+          <h2 data-i18n="home.contactTitle">联系</h2>
+          <p data-i18n="home.contactIntro">站点内容与仓库更新都以 GitHub 为主，沟通入口保留 Email。</p>
         </div>
       </div>
       <div class="pill-row">

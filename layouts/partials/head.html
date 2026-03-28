@@ -2,5 +2,36 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} | {{ site.Title }}{{ end }}</title>
 <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ with .Params.description }}{{ . }}{{ else }}{{ site.Params.heroIntro }}{{ end }}{{ end }}">
+<script>
+  (function () {
+    var langKey = "site-ui-lang";
+    var themeKey = "site-ui-theme";
+    var root = document.documentElement;
+    var lang = "zh";
+    var theme = "light";
+
+    try {
+      lang = localStorage.getItem(langKey) || lang;
+      theme = localStorage.getItem(themeKey) || theme;
+    } catch (error) {
+      lang = "zh";
+      theme = "light";
+    }
+
+    if (lang !== "en") {
+      lang = "zh";
+    }
+
+    if (theme !== "dark" && theme !== "green") {
+      theme = "light";
+    }
+
+    root.setAttribute("lang", lang === "en" ? "en" : "zh-CN");
+    root.dataset.uiLang = lang;
+    root.dataset.uiTheme = theme;
+  })();
+</script>
 {{ $css := resources.Get "css/main.css" | minify | fingerprint }}
+{{ $js := resources.Get "js/site-ui.js" | minify | fingerprint }}
 <link rel="stylesheet" href="{{ $css.RelPermalink }}">
+<script defer src="{{ $js.RelPermalink }}"></script>

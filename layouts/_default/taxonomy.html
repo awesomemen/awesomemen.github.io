@@ -3,7 +3,7 @@
     <div class="page-head__panel">
       <div class="eyebrow">{{ .Data.Singular }}</div>
       <h1>{{ .Title }}</h1>
-      <p>这个专题下当前共有 {{ len .Pages }} 篇内容。</p>
+      <p data-i18n-template="taxonomy.summary" data-count="{{ len .Pages }}">这个专题下当前共有 {{ len .Pages }} 篇内容。</p>
     </div>
   </section>
 
@@ -17,7 +17,7 @@
       </div>
       {{ partial "pagination.html" . }}
     {{ else }}
-      <div class="empty-state">这个专题下暂时还没有文章。</div>
+      <div class="empty-state" data-i18n="taxonomy.empty">这个专题下暂时还没有文章。</div>
     {{ end }}
   </section>
 {{ end }}

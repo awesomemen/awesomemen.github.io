@@ -1,12 +1,12 @@
 {{ with .Paginator }}
   {{ if gt .TotalPages 1 }}
-    <nav class="pagination" aria-label="分页">
+    <nav class="pagination" aria-label="分页" data-i18n-attr="aria-label:pagination.ariaLabel">
       {{ if .HasPrev }}
-        <a href="{{ .Prev.URL }}">上一页</a>
+        <a href="{{ .Prev.URL }}" data-i18n="pagination.prev">上一页</a>
       {{ end }}
-      <span class="is-current">第 {{ .PageNumber }} / {{ .TotalPages }} 页</span>
+      <span class="is-current" data-i18n-template="pagination.current" data-page-number="{{ .PageNumber }}" data-total-pages="{{ .TotalPages }}">第 {{ .PageNumber }} / {{ .TotalPages }} 页</span>
       {{ if .HasNext }}
-        <a href="{{ .Next.URL }}">下一页</a>
+        <a href="{{ .Next.URL }}" data-i18n="pagination.next">下一页</a>
       {{ end }}
     </nav>
   {{ end }}

@@ -1,12 +1,12 @@
 {{ define "main" }}
   <section class="page-head">
     <div class="page-head__panel">
-      <div class="eyebrow">{{ .Section | default .Kind }}</div>
-      <h1>{{ .Title }}</h1>
+      <div class="eyebrow" {{ if eq .Section "projects" }}data-i18n="page.projectsEyebrow"{{ else if eq .Section "posts" }}data-i18n="page.postsEyebrow"{{ end }}>{{ .Section | default .Kind }}</div>
+      <h1 {{ if eq .Section "projects" }}data-i18n="page.projectsTitle"{{ else if eq .Section "posts" }}data-i18n="page.postsTitle"{{ end }}>{{ .Title }}</h1>
       {{ with .Description }}
-        <p>{{ . }}</p>
+        <p {{ if eq $.Section "projects" }}data-i18n="page.projectsDescription"{{ else if eq $.Section "posts" }}data-i18n="page.postsDescription"{{ end }}>{{ . }}</p>
       {{ else }}
-        <p>{{ if eq .Section "projects" }}持续维护的项目与实践索引。{{ else }}按时间沉淀的技术文章与复盘记录。{{ end }}</p>
+        <p {{ if eq .Section "projects" }}data-i18n="page.projectsDefaultDescription"{{ else }}data-i18n="page.postsDefaultDescription"{{ end }}>{{ if eq .Section "projects" }}持续维护的项目与实践索引。{{ else }}按时间沉淀的技术文章与复盘记录。{{ end }}</p>
       {{ end }}
     </div>
   </section>
@@ -21,7 +21,7 @@
           {{ end }}
         </div>
       {{ else }}
-        <div class="empty-state">这里会放持续维护中的项目与仓库。</div>
+        <div class="empty-state" data-i18n="page.emptyProjects">这里会放持续维护中的项目与仓库。</div>
       {{ end }}
     {{ else }}
       {{ $pages := .RegularPages.ByDate.Reverse }}
@@ -34,7 +34,7 @@
         </div>
         {{ partial "pagination.html" . }}
       {{ else }}
-        <div class="empty-state">内容还在整理中，稍后会出现首批文章。</div>
+        <div class="empty-state" data-i18n="page.emptyPosts">内容还在整理中，稍后会出现首批文章。</div>
       {{ end }}
     {{ end }}
   </section>

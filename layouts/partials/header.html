@@ -1,11 +1,30 @@
 <header class="topbar">
   <div class="topbar__inner">
     <a class="brand" href="/">{{ site.Title }}</a>
-    <nav class="nav" aria-label="主导航">
-      {{ range site.Menus.main }}
-        {{ $isActive := or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) (eq $.RelPermalink .URL) }}
-        <a class="{{ if $isActive }}is-active{{ end }}" href="{{ .URL }}">{{ .Name }}</a>
-      {{ end }}
-    </nav>
+    <div class="topbar__actions">
+      <nav class="nav" aria-label="主导航" data-i18n-attr="aria-label:nav.ariaLabel">
+        {{ range site.Menus.main }}
+          {{ $isActive := or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) (eq $.RelPermalink .URL) }}
+          <a
+            class="{{ if $isActive }}is-active{{ end }}"
+            href="{{ .URL }}"
+            data-i18n="{{ if eq .URL `/` }}nav.home{{ else if eq .URL `/posts/` }}nav.posts{{ else if eq .URL `/topics/` }}nav.topics{{ else if eq .URL `/projects/` }}nav.projects{{ end }}"
+          >{{ .Name }}</a>
+        {{ end }}
+      </nav>
+      <div class="toolbar" aria-label="界面设置" data-i18n-attr="aria-label:toolbar.ariaLabel">
+        <div class="toolbar__group" role="group" aria-label="语言切换" data-i18n-attr="aria-label:toolbar.language">
+          <span class="toolbar__label" data-i18n="toolbar.languageLabel">语言</span>
+          <button class="toolbar__button" type="button" data-ui-lang-option="zh" aria-pressed="true" data-i18n="toolbar.langZh">中文</button>
+          <button class="toolbar__button" type="button" data-ui-lang-option="en" aria-pressed="false" data-i18n="toolbar.langEn">EN</button>
+        </div>
+        <div class="toolbar__group" role="group" aria-label="配色切换" data-i18n-attr="aria-label:toolbar.theme">
+          <span class="toolbar__label" data-i18n="toolbar.themeLabel">配色</span>
+          <button class="toolbar__button" type="button" data-ui-theme-option="light" aria-pressed="true" data-i18n="toolbar.themeLight">亮色</button>
+          <button class="toolbar__button" type="button" data-ui-theme-option="dark" aria-pressed="false" data-i18n="toolbar.themeDark">暗色</button>
+          <button class="toolbar__button" type="button" data-ui-theme-option="green" aria-pressed="false" data-i18n="toolbar.themeGreen">绿色</button>
+        </div>
+      </div>
+    </div>
   </div>
 </header>

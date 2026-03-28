@@ -1,17 +1,17 @@
 {{ define "main" }}
   <section class="single-wrap">
     <article class="single-card">
-      <div class="eyebrow">{{ if eq .Section "projects" }}Project{{ else }}Article{{ end }}</div>
+      <div class="eyebrow" data-i18n="{{ if eq .Section `projects` }}single.projectEyebrow{{ else }}single.articleEyebrow{{ end }}">{{ if eq .Section "projects" }}Project{{ else }}Article{{ end }}</div>
       <h1>{{ .Title }}</h1>
       <div class="single-card__meta">
         {{ if ne .Section "projects" }}
           <span>{{ .Date.Format "2006-01-02" }}</span>
         {{ end }}
         {{ with .Params.categories }}
-          <span>分类：{{ delimit . " / " }}</span>
+          <span><span data-i18n="single.categoryLabel">分类：</span>{{ delimit . " / " }}</span>
         {{ end }}
         {{ with .Params.tech_stack }}
-          <span>技术栈：{{ delimit . " / " }}</span>
+          <span><span data-i18n="single.techStackLabel">技术栈：</span>{{ delimit . " / " }}</span>
         {{ end }}
       </div>
       {{ with .Params.description }}
@@ -23,7 +23,7 @@
 
       {{ if and (eq .Section "projects") .Params.repo_url }}
         <div class="pill-row">
-          <a class="pill" href="{{ .Params.repo_url }}" target="_blank" rel="noreferrer">查看仓库</a>
+          <a class="pill" href="{{ .Params.repo_url }}" target="_blank" rel="noreferrer" data-i18n="single.viewRepo">查看仓库</a>
         </div>
       {{ end }}
 
