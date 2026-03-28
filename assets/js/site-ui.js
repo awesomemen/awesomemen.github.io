@@ -194,8 +194,8 @@ function getUiLang() {
 }
 
 function getUiTheme() {
-  const theme = getStoredValue(UI_THEME_KEY, document.documentElement.dataset.uiTheme || "light");
-  return theme === "dark" || theme === "green" ? theme : "light";
+  const theme = getStoredValue(UI_THEME_KEY, document.documentElement.dataset.uiTheme || "green");
+  return theme === "light" || theme === "dark" ? theme : "green";
 }
 
 function applyLanguage(lang) {
@@ -260,22 +260,72 @@ function applyTheme(theme) {
   });
 }
 
+function setMenuOpenState(menuName, isOpen) {
+  document.querySelectorAll("[data-ui-menu]").forEach((menu) => {
+    const isTarget = menu.dataset.uiMenu === menuName;
+    const nextOpen = isTarget && isOpen;
+    const trigger = menu.querySelector("[data-ui-menu-trigger]");
+    menu.dataset.uiMenuOpen = nextOpen ? "true" : "false";
+    if (trigger) {
+      trigger.setAttribute("aria-expanded", nextOpen ? "true" : "false");
+      trigger.classList.toggle("is-active", nextOpen);
+    }
+  });
+}
+
+function closeMenus() {
+  document.querySelectorAll("[data-ui-menu]").forEach((menu) => {
+    const trigger = menu.querySelector("[data-ui-menu-trigger]");
+    menu.dataset.uiMenuOpen = "false";
+    if (trigger) {
+      trigger.setAttribute("aria-expanded", "false");
+      trigger.classList.remove("is-active");
+    }
+  });
+}
+
 function bindUiControls() {
+  document.querySelectorAll("[data-ui-menu-trigger]").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      event.stopPropagation();
+      const menuName = button.dataset.uiMenuTrigger;
+      const menu = document.querySelector(`[data-ui-menu="${menuName}"]`);
+      const isOpen = menu && menu.dataset.uiMenuOpen === "true";
+      setMenuOpenState(menuName, !isOpen);
+    });
+  });
+
   document.querySelectorAll("[data-ui-lang-option]").forEach((button) => {
-    button.addEventListener("click", () => {
+    button.addEventListener("click", (event) => {
+      event.stopPropagation();
       const lang = button.dataset.uiLangOption === "en" ? "en" : "zh";
       setStoredValue(UI_LANG_KEY, lang);
       applyLanguage(lang);
+      closeMenus();
     });
   });
 
   document.querySelectorAll("[data-ui-theme-option]").forEach((button) => {
-    button.addEventListener("click", () => {
+    button.addEventListener("click", (event) => {
+      event.stopPropagation();
       const theme = button.dataset.uiThemeOption;
       const normalizedTheme = theme === "dark" || theme === "green" ? theme : "light";
       setStoredValue(UI_THEME_KEY, normalizedTheme);
       applyTheme(normalizedTheme);
+      closeMenus();
     });
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!event.target.closest("[data-ui-menu]")) {
+      closeMenus();
+    }
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeMenus();
+    }
   });
 }
 

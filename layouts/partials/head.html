@@ -8,22 +8,22 @@
     var themeKey = "site-ui-theme";
     var root = document.documentElement;
     var lang = "zh";
-    var theme = "light";
+    var theme = "green";
 
     try {
       lang = localStorage.getItem(langKey) || lang;
       theme = localStorage.getItem(themeKey) || theme;
     } catch (error) {
       lang = "zh";
-      theme = "light";
+      theme = "green";
     }
 
     if (lang !== "en") {
       lang = "zh";
     }
 
-    if (theme !== "dark" && theme !== "green") {
-      theme = "light";
+    if (theme !== "light" && theme !== "dark") {
+      theme = "green";
     }
 
     root.setAttribute("lang", lang === "en" ? "en" : "zh-CN");

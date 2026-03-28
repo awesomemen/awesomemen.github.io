@@ -9,8 +9,8 @@
   <p>{{ with .Params.description }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 110 }}{{ end }}</p>
   {{ with .Params.tags }}
     <div class="pill-row">
-      {{ range first 3 . }}
-        <a class="pill" href="{{ `/tags/` | relLangURL }}{{ . | urlize }}/">#{{ . }}</a>
+      {{ range first 2 . }}
+        <a class="pill pill--subtle" href="{{ `/tags/` | relLangURL }}{{ . | urlize }}/">#{{ . }}</a>
       {{ end }}
     </div>
   {{ end }}

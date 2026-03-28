@@ -9,8 +9,8 @@
   <p>{{ .Params.summary }}</p>
   <div class="pill-row">
     {{ if .Params.repo_url }}
-      <a class="pill" href="{{ .Params.repo_url }}" target="_blank" rel="noreferrer" data-i18n="projectCard.repo">仓库</a>
+      <a class="pill pill--subtle" href="{{ .Params.repo_url }}" target="_blank" rel="noreferrer" data-i18n="projectCard.repo">仓库</a>
     {{ end }}
-    <a class="pill" href="{{ .RelPermalink }}" data-i18n="projectCard.details">详情</a>
+    <a class="pill pill--subtle" href="{{ .RelPermalink }}" data-i18n="projectCard.details">详情</a>
   </div>
 </article>
