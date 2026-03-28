@@ -242,10 +242,8 @@ function applyLanguage(lang) {
     });
   });
 
-  document.querySelectorAll("[data-ui-lang-option]").forEach((button) => {
-    const isActive = button.dataset.uiLangOption === lang;
-    button.setAttribute("aria-pressed", isActive ? "true" : "false");
-    button.classList.toggle("is-active", isActive);
+  document.querySelectorAll("[data-ui-lang-toggle]").forEach((button) => {
+    button.dataset.uiLangCurrent = lang;
   });
 }
 
@@ -285,6 +283,15 @@ function closeMenus() {
 }
 
 function bindUiControls() {
+  document.querySelectorAll("[data-ui-lang-toggle]").forEach((button) => {
+    button.addEventListener("click", (event) => {
+      event.stopPropagation();
+      const lang = getUiLang() === "en" ? "zh" : "en";
+      setStoredValue(UI_LANG_KEY, lang);
+      applyLanguage(lang);
+    });
+  });
+
   document.querySelectorAll("[data-ui-menu-trigger]").forEach((button) => {
     button.addEventListener("click", (event) => {
       event.stopPropagation();
@@ -292,16 +299,6 @@ function bindUiControls() {
       const menu = document.querySelector(`[data-ui-menu="${menuName}"]`);
       const isOpen = menu && menu.dataset.uiMenuOpen === "true";
       setMenuOpenState(menuName, !isOpen);
-    });
-  });
-
-  document.querySelectorAll("[data-ui-lang-option]").forEach((button) => {
-    button.addEventListener("click", (event) => {
-      event.stopPropagation();
-      const lang = button.dataset.uiLangOption === "en" ? "en" : "zh";
-      setStoredValue(UI_LANG_KEY, lang);
-      applyLanguage(lang);
-      closeMenus();
     });
   });
 

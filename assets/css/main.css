@@ -190,7 +190,8 @@ blockquote {
   justify-content: flex-end;
   gap: 0.75rem;
   flex: 1;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  min-width: 0;
 }
 
 .brand {
@@ -202,8 +203,9 @@ blockquote {
 .nav {
   display: flex;
   gap: 0.2rem;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: flex-end;
+  min-width: 0;
 }
 
 .nav a {
@@ -224,6 +226,7 @@ blockquote {
   gap: 0.45rem;
   justify-content: flex-end;
   position: relative;
+  flex-shrink: 0;
 }
 
 .toolbar__menu {
@@ -672,7 +675,7 @@ blockquote {
   }
 
   .topbar__actions {
-    justify-content: flex-start;
+    justify-content: flex-end;
   }
 }
 
@@ -701,7 +704,12 @@ blockquote {
   .topbar__actions,
   .toolbar {
     width: 100%;
-    justify-content: flex-start;
+    justify-content: flex-end;
+  }
+
+  .nav {
+    width: 100%;
+    justify-content: flex-end;
   }
 
   .toolbar__panel {
